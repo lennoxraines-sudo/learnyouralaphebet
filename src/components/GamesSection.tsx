@@ -1,7 +1,10 @@
 import SectionHeader from "./SectionHeader";
 import LinkCard from "./LinkCard";
+import ImageCarousel from "./ImageCarousel";
 import { Gamepad2 } from "lucide-react";
 import { motion } from "framer-motion";
+import carouselGaming from "@/assets/carousel-gaming.jpg";
+import carouselArcade from "@/assets/carousel-arcade.jpg";
 
 const games = [
   { title: "DOOM", url: "https://incrediblewebsite.github.io/doom", description: "Arrow keys and Ctrl to play" },
