@@ -1,6 +1,7 @@
 import SectionHeader from "./SectionHeader";
 import LinkCard from "./LinkCard";
 import ImageCarousel from "./ImageCarousel";
+import { ScrollFlipIn, ScrollZoomIn } from "./ScrollAnimations";
 import { Gamepad2 } from "lucide-react";
 import { motion } from "framer-motion";
 import carouselGaming from "@/assets/carousel-gaming.jpg";
