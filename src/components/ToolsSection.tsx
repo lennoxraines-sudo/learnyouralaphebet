@@ -1,7 +1,9 @@
 import SectionHeader from "./SectionHeader";
 import LinkCard from "./LinkCard";
+import ImageCarousel from "./ImageCarousel";
 import { Wrench } from "lucide-react";
 import { motion } from "framer-motion";
+import carouselTools from "@/assets/carousel-tools.jpg";
 
 const ToolsSection = () => (
   <section id="tools" className="mx-auto max-w-6xl px-4 py-20">
