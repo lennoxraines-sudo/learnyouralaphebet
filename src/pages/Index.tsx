@@ -1,16 +1,30 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import Navbar from "@/components/Navbar";
+import HeroSection from "@/components/HeroSection";
+import CautionSection from "@/components/CautionSection";
+import ProxiesSection from "@/components/ProxiesSection";
+import GamesSection from "@/components/GamesSection";
+import MoviesSection from "@/components/MoviesSection";
+import ToolsSection from "@/components/ToolsSection";
+import DeadProxiesSection from "@/components/DeadProxiesSection";
+import VersionsSection from "@/components/VersionsSection";
 
-// IMPORTANT: Fully REPLACE this with your own code
-const PlaceholderIndex = () => {
-  // PLACEHOLDER: Replace this entire return statement with the user's app.
-  // The inline background color is intentionally not part of the design system.
-  return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
-    </div>
-  );
-};
-
-const Index = PlaceholderIndex;
+const Index = () => (
+  <div className="min-h-screen bg-background">
+    <Navbar />
+    <HeroSection />
+    <CautionSection />
+    <ProxiesSection />
+    <GamesSection />
+    <MoviesSection />
+    <ToolsSection />
+    <DeadProxiesSection />
+    <VersionsSection />
+    <footer className="border-t border-border py-8 text-center">
+      <p className="font-display text-xs text-muted-foreground">
+        YOYO'S NETWORK V2 — yoyosnetwork.com
+      </p>
+    </footer>
+  </div>
+);
 
 export default Index;
