@@ -1,7 +1,9 @@
 import SectionHeader from "./SectionHeader";
 import LinkCard from "./LinkCard";
+import ImageCarousel from "./ImageCarousel";
 import { Film } from "lucide-react";
 import { motion } from "framer-motion";
+import carouselMovies from "@/assets/carousel-movies.jpg";
 
 const MoviesSection = () => (
   <section id="movies" className="mx-auto max-w-6xl px-4 py-20">
