@@ -1,3 +1,6 @@
-# Welcome to your Lovable project
+# Yoyo's Network Ofiical Site
 
-TODO: Document your project here
+TODO: add movies
+      add more games
+      add game hosting in the website
+      add visual preferences
