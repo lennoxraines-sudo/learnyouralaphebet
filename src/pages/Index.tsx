@@ -12,6 +12,7 @@ import VersionsSection from "@/components/VersionsSection";
 const Index = () => (
   <div className="min-h-screen bg-background">
     <Navbar />
+    <ThemeChanger />
     <HeroSection />
     <CautionSection />
     <ProxiesSection />
