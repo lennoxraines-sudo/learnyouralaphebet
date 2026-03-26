@@ -88,9 +88,13 @@ const ParticleBackground = () => {
         if (p.y < 0) p.y = canvas.height;
         if (p.y > canvas.height) p.y = 0;
 
+        // Glow near mouse
+        const glowBoost = mDist < MOUSE_RADIUS ? 0.3 * (1 - mDist / MOUSE_RADIUS) : 0;
+        const drawSize = p.size + (mDist < MOUSE_RADIUS ? 1.5 * (1 - mDist / MOUSE_RADIUS) : 0);
+
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `hsl(${hsl} / ${p.opacity})`;
+        ctx.arc(p.x, p.y, drawSize, 0, Math.PI * 2);
+        ctx.fillStyle = `hsl(${hsl} / ${Math.min(p.opacity + glowBoost, 0.9)})`;
         ctx.fill();
 
         for (let j = i + 1; j < particles.length; j++) {
