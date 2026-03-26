@@ -1,6 +1,7 @@
 import SectionHeader from "./SectionHeader";
 import LinkCard from "./LinkCard";
 import ImageCarousel from "./ImageCarousel";
+import { ScrollFlipIn, ScrollZoomIn } from "./ScrollAnimations";
 import { Globe } from "lucide-react";
 import { motion } from "framer-motion";
 import carouselNetwork from "@/assets/carousel-network.jpg";
