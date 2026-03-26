@@ -11,6 +11,9 @@ const ParticleBackground = () => {
 
     let animationId: number;
     let particles: { x: number; y: number; vx: number; vy: number; size: number; opacity: number }[] = [];
+    const mouse = { x: -9999, y: -9999 };
+    const MOUSE_RADIUS = 150;
+    const MOUSE_FORCE = 0.8;
 
     const resize = () => {
       canvas.width = window.innerWidth;
@@ -18,6 +21,17 @@ const ParticleBackground = () => {
     };
     resize();
     window.addEventListener("resize", resize);
+
+    const onMouseMove = (e: MouseEvent) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    };
+    const onMouseLeave = () => {
+      mouse.x = -9999;
+      mouse.y = -9999;
+    };
+    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("mouseleave", onMouseLeave);
 
     const COUNT = 80;
     const MAX_DIST = 120;
@@ -45,6 +59,28 @@ const ParticleBackground = () => {
 
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
+
+        // Mouse repulsion
+        const mdx = p.x - mouse.x;
+        const mdy = p.y - mouse.y;
+        const mDist = Math.sqrt(mdx * mdx + mdy * mdy);
+        if (mDist < MOUSE_RADIUS && mDist > 0) {
+          const force = (1 - mDist / MOUSE_RADIUS) * MOUSE_FORCE;
+          p.vx += (mdx / mDist) * force;
+          p.vy += (mdy / mDist) * force;
+        }
+
+        // Damping
+        p.vx *= 0.98;
+        p.vy *= 0.98;
+
+        // Clamp speed
+        const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+        if (speed > 3) {
+          p.vx = (p.vx / speed) * 3;
+          p.vy = (p.vy / speed) * 3;
+        }
+
         p.x += p.vx;
         p.y += p.vy;
         if (p.x < 0) p.x = canvas.width;
