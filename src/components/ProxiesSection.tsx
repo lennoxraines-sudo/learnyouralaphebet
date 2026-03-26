@@ -1,7 +1,10 @@
 import SectionHeader from "./SectionHeader";
 import LinkCard from "./LinkCard";
+import ImageCarousel from "./ImageCarousel";
 import { Globe } from "lucide-react";
 import { motion } from "framer-motion";
+import carouselNetwork from "@/assets/carousel-network.jpg";
+import carouselDigital from "@/assets/carousel-digital.jpg";
 
 const proxies = [
   { title: "Froggy / Old Mill School", url: "https://oldmillschool.org/", recommended: true, description: "Froggy might be back — test this link!" },
