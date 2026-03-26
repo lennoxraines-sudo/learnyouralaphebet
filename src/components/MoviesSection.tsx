@@ -1,11 +1,18 @@
 import SectionHeader from "./SectionHeader";
 import LinkCard from "./LinkCard";
+import ImageCarousel from "./ImageCarousel";
 import { Film } from "lucide-react";
 import { motion } from "framer-motion";
+import carouselMovies from "@/assets/carousel-movies.jpg";
 
 const MoviesSection = () => (
   <section id="movies" className="mx-auto max-w-6xl px-4 py-20">
     <SectionHeader title="MOVIES & STREAMING" subtitle="Watch shows and movies during your free time" icon={Film} />
+    <div className="mx-auto max-w-3xl mb-8">
+      <ImageCarousel images={[
+        { src: carouselMovies, alt: "Cyberpunk cinema", caption: "300-1000+ movies available for streaming" },
+      ]} autoPlay={false} />
+    </div>
     <motion.div
       className="mx-auto max-w-3xl space-y-4"
       initial={{ opacity: 0 }}

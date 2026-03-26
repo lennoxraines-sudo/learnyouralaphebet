@@ -1,11 +1,18 @@
 import SectionHeader from "./SectionHeader";
 import LinkCard from "./LinkCard";
+import ImageCarousel from "./ImageCarousel";
 import { Wrench } from "lucide-react";
 import { motion } from "framer-motion";
+import carouselTools from "@/assets/carousel-tools.jpg";
 
 const ToolsSection = () => (
   <section id="tools" className="mx-auto max-w-6xl px-4 py-20">
     <SectionHeader title="TOOLS & EXPLOITS" subtitle="Extensions, removers, and system tools" icon={Wrench} />
+    <div className="mx-auto max-w-4xl mb-8">
+      <ImageCarousel images={[
+        { src: carouselTools, alt: "Hacker workstation", caption: "Tools to take control of your machine" },
+      ]} autoPlay={false} />
+    </div>
     <motion.div
       className="mx-auto grid max-w-4xl gap-4 sm:grid-cols-2"
       initial={{ opacity: 0, y: 20 }}

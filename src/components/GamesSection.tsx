@@ -1,7 +1,10 @@
 import SectionHeader from "./SectionHeader";
 import LinkCard from "./LinkCard";
+import ImageCarousel from "./ImageCarousel";
 import { Gamepad2 } from "lucide-react";
 import { motion } from "framer-motion";
+import carouselGaming from "@/assets/carousel-gaming.jpg";
+import carouselArcade from "@/assets/carousel-arcade.jpg";
 
 const games = [
   { title: "DOOM", url: "https://incrediblewebsite.github.io/doom", description: "Arrow keys and Ctrl to play" },
@@ -25,6 +28,12 @@ const item = { hidden: { opacity: 0, y: 12 }, show: { opacity: 1, y: 0 } };
 const GamesSection = () => (
   <section id="games" className="mx-auto max-w-6xl px-4 py-20">
     <SectionHeader title="GAMES" subtitle="Direct links to playable games" icon={Gamepad2} />
+    <div className="mb-8">
+      <ImageCarousel images={[
+        { src: carouselGaming, alt: "Gaming setup", caption: "Unblocked gaming at its finest" },
+        { src: carouselArcade, alt: "Retro arcade", caption: "Classic arcade titles available" },
+      ]} />
+    </div>
     <motion.div
       className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
       variants={container} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.1 }}
