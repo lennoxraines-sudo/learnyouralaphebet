@@ -1,6 +1,7 @@
 import SectionHeader from "./SectionHeader";
 import LinkCard from "./LinkCard";
 import ImageCarousel from "./ImageCarousel";
+import { ScrollFlipIn, ScrollZoomIn } from "./ScrollAnimations";
 import { Globe } from "lucide-react";
 import { motion } from "framer-motion";
 import carouselNetwork from "@/assets/carousel-network.jpg";
@@ -44,12 +45,14 @@ const item = {
 const ProxiesSection = () => (
   <section id="proxies" className="mx-auto max-w-6xl px-4 py-20">
     <SectionHeader title="PROXY SITES" subtitle="Curated collection of working proxy and game sites" icon={Globe} />
-    <div className="mb-8">
-      <ImageCarousel images={[
-        { src: carouselNetwork, alt: "Network hub", caption: "Your gateway to the unblocked web" },
-        { src: carouselDigital, alt: "Digital grid", caption: "Explore the network" },
-      ]} />
-    </div>
+    <ScrollFlipIn>
+      <div className="mb-8">
+        <ImageCarousel images={[
+          { src: carouselNetwork, alt: "Network hub", caption: "Your gateway to the unblocked web" },
+          { src: carouselDigital, alt: "Digital grid", caption: "Explore the network" },
+        ]} />
+      </div>
+    </ScrollFlipIn>
     <motion.div
       className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
       variants={container}
@@ -57,9 +60,11 @@ const ProxiesSection = () => (
       whileInView="show"
       viewport={{ once: true, amount: 0.1 }}
     >
-      {proxies.map((p) => (
+      {proxies.map((p, i) => (
         <motion.div key={p.url} variants={item}>
-          <LinkCard {...p} />
+          <ScrollZoomIn>
+            <LinkCard {...p} />
+          </ScrollZoomIn>
         </motion.div>
       ))}
     </motion.div>
