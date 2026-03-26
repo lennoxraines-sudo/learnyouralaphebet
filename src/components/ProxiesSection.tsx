@@ -44,6 +44,12 @@ const item = {
 const ProxiesSection = () => (
   <section id="proxies" className="mx-auto max-w-6xl px-4 py-20">
     <SectionHeader title="PROXY SITES" subtitle="Curated collection of working proxy and game sites" icon={Globe} />
+    <div className="mb-8">
+      <ImageCarousel images={[
+        { src: carouselNetwork, alt: "Network hub", caption: "Your gateway to the unblocked web" },
+        { src: carouselDigital, alt: "Digital grid", caption: "Explore the network" },
+      ]} />
+    </div>
     <motion.div
       className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
       variants={container}
