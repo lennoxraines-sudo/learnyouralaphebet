@@ -11,7 +11,8 @@ import DeadProxiesSection from "@/components/DeadProxiesSection";
 import VersionsSection from "@/components/VersionsSection";
 
 const Index = () => (
-  <div className="min-h-screen bg-background">
+  <div className="relative min-h-screen bg-background">
+    <ParticleBackground />
     <Navbar />
     <ThemeChanger />
     <HeroSection />
