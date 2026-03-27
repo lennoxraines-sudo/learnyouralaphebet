@@ -1,55 +1,82 @@
+import { useState } from "react";
 import SectionHeader from "./SectionHeader";
 import LinkCard from "./LinkCard";
 import ImageCarousel from "./ImageCarousel";
 import { ScrollFlipIn, ScrollZoomIn } from "./ScrollAnimations";
-import { Gamepad2 } from "lucide-react";
+import { Gamepad2, ChevronDown, ChevronUp, Download } from "lucide-react";
 import { motion } from "framer-motion";
 import carouselGaming from "@/assets/carousel-gaming.jpg";
 import carouselArcade from "@/assets/carousel-arcade.jpg";
-
-const games = [
-  { title: "DOOM", url: "https://incrediblewebsite.github.io/doom", description: "Arrow keys and Ctrl to play" },
-  { title: "Idle Breakout", url: "https://incrediblewebsite.github.io/idlebreakout/" },
-  { title: "Cookie Clicker", url: "https://incrediblewebsite.github.io/cookieclicker/" },
-  { title: "Kaizo Cookies", url: "https://plasma4.github.io/kaizo-cookies/", description: "A harder Cookie Clicker experience" },
-  { title: "Minecraft", url: "https://oldmillschool.org/iframe.html" },
-  { title: "Big Ice Tower Tiny Square", url: "https://incrediblewebsite.github.io/bigicetowertinysquare/" },
-  { title: "Scratch — FNAF", url: "https://scratch.mit.edu/projects/1231016758/fullscreen/" },
-  { title: "Five Nights at Epstein's", url: "https://sites.google.com/view/smithper42025-2026trimenster3/five-nights-at-epsteins" },
-  { title: "RUN 3", url: "https://incrediblewebsite.github.io/run3/" },
-  { title: "SLOPE", url: "https://incrediblewebsite.github.io/slope/" },
-  { title: "Meme Soundboard", url: "https://soundboardguys.com/", description: "#1 way to annoy teachers and students" },
-  { title: "Blooket Hacks", url: "https://docs.google.com/document/d/10dcFBbj3YKHmsAVORQF6u9zp_ukofnvs6kmB-0leGF8/edit?tab=t.0" },
-  { title: "PC Games (GitHub)", url: "https://github.com/Project-Bradnails/Bradnails/commit/d967e7e572e7cd04137a3140f53becd3cc05b484#diff-4372ef01d848d6fc93a6a60d9bdc6b08364f4bfb5e3aa23974b01ab4dd3b40deR149-R151", description: "Most might not work because of .exe files" },
-];
+import { originalGames, driveGames } from "@/data/games";
 
 const container = { hidden: {}, show: { transition: { staggerChildren: 0.04 } } };
 const item = { hidden: { opacity: 0, y: 12 }, show: { opacity: 1, y: 0 } };
 
-const GamesSection = () => (
-  <section id="games" className="mx-auto max-w-6xl px-4 py-20">
-    <SectionHeader title="GAMES" subtitle="Direct links to playable games" icon={Gamepad2} />
-    <ScrollFlipIn>
-      <div className="mb-8">
-        <ImageCarousel images={[
-          { src: carouselGaming, alt: "Gaming setup", caption: "Unblocked gaming at its finest" },
-          { src: carouselArcade, alt: "Retro arcade", caption: "Classic arcade titles available" },
-        ]} />
+const GamesSection = () => {
+  const [showDriveGames, setShowDriveGames] = useState(false);
+
+  return (
+    <section id="games" className="mx-auto max-w-6xl px-4 py-20">
+      <SectionHeader title="GAMES" subtitle={`Direct links to ${originalGames.length + driveGames.length}+ playable games`} icon={Gamepad2} />
+      <ScrollFlipIn>
+        <div className="mb-8">
+          <ImageCarousel images={[
+            { src: carouselGaming, alt: "Gaming setup", caption: "Unblocked gaming at its finest" },
+            { src: carouselArcade, alt: "Retro arcade", caption: "Classic arcade titles available" },
+          ]} />
+        </div>
+      </ScrollFlipIn>
+
+      {/* Original direct-play games */}
+      <motion.div
+        className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+        variants={container} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.1 }}
+      >
+        {originalGames.map((g) => (
+          <motion.div key={g.url} variants={item}>
+            <ScrollZoomIn>
+              <LinkCard {...g} />
+            </ScrollZoomIn>
+          </motion.div>
+        ))}
+      </motion.div>
+
+      {/* Downloadable HTML games toggle */}
+      <div className="mt-8">
+        <button
+          onClick={() => setShowDriveGames(!showDriveGames)}
+          className="mx-auto flex items-center gap-2 rounded-lg border border-border bg-card/50 px-6 py-3 font-display text-sm text-foreground backdrop-blur transition-colors hover:bg-primary/10"
+        >
+          <Download className="h-4 w-4 text-primary" />
+          {showDriveGames ? "Hide" : "Show"} {driveGames.length}+ Downloadable HTML Games
+          {showDriveGames ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+        </button>
+        <p className="mt-2 text-center text-xs text-muted-foreground">Download the .html file and open it in your browser</p>
       </div>
-    </ScrollFlipIn>
-    <motion.div
-      className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
-      variants={container} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.1 }}
-    >
-      {games.map((g) => (
-        <motion.div key={g.url} variants={item}>
-          <ScrollZoomIn>
-            <LinkCard {...g} />
-          </ScrollZoomIn>
+
+      {showDriveGames && (
+        <motion.div
+          className="mt-6 grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: "auto" }}
+          transition={{ duration: 0.4 }}
+        >
+          {driveGames.map((g) => (
+            <a
+              key={g.url}
+              href={g.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 rounded-md border border-border bg-card/30 px-3 py-2 text-sm text-foreground transition-colors hover:border-primary/50 hover:bg-primary/5"
+            >
+              <Gamepad2 className="h-3.5 w-3.5 shrink-0 text-primary" />
+              <span className="truncate">{g.title}</span>
+            </a>
+          ))}
         </motion.div>
-      ))}
-    </motion.div>
-  </section>
-);
+      )}
+    </section>
+  );
+};
 
 export default GamesSection;

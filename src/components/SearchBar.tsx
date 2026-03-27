@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import { Search, X, Globe, Gamepad2, Film, Wrench, ExternalLink } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { allGames } from "@/data/games";
 
 interface SearchItem {
   title: string;
@@ -36,20 +37,8 @@ const allItems: SearchItem[] = [
   { title: "Math Playground", url: "https://www.mathplayground.com/", category: "Proxy", icon: Globe, sectionId: "proxies" },
   { title: "Mortage Calculator Games", url: "https://www.mortgagecalculator.org/money-games/", category: "Proxy", icon: Globe, sectionId: "proxies" },
   { title: "NEO", url: "https://docs.google.com/document/d/1lO2MSG9GLp4M7X0VDNcQuKxyFHcq3N24ab0ltrYxQwU/edit?tab=t.vhtkk2vpn6w6#heading=h.462cfbg0gb2n", category: "Proxy", icon: Globe, sectionId: "proxies" },
-  // Games
-  { title: "DOOM", url: "https://incrediblewebsite.github.io/doom", description: "Arrow keys and Ctrl to play", category: "Game", icon: Gamepad2, sectionId: "games" },
-  { title: "Idle Breakout", url: "https://incrediblewebsite.github.io/idlebreakout/", category: "Game", icon: Gamepad2, sectionId: "games" },
-  { title: "Cookie Clicker", url: "https://incrediblewebsite.github.io/cookieclicker/", category: "Game", icon: Gamepad2, sectionId: "games" },
-  { title: "Kaizo Cookies", url: "https://plasma4.github.io/kaizo-cookies/", description: "A harder Cookie Clicker experience", category: "Game", icon: Gamepad2, sectionId: "games" },
-  { title: "Minecraft", url: "https://oldmillschool.org/iframe.html", category: "Game", icon: Gamepad2, sectionId: "games" },
-  { title: "Big Ice Tower Tiny Square", url: "https://incrediblewebsite.github.io/bigicetowertinysquare/", category: "Game", icon: Gamepad2, sectionId: "games" },
-  { title: "Scratch — FNAF", url: "https://scratch.mit.edu/projects/1231016758/fullscreen/", category: "Game", icon: Gamepad2, sectionId: "games" },
-  { title: "Five Nights at Epstein's", url: "https://sites.google.com/view/smithper42025-2026trimenster3/five-nights-at-epsteins", category: "Game", icon: Gamepad2, sectionId: "games" },
-  { title: "RUN 3", url: "https://incrediblewebsite.github.io/run3/", category: "Game", icon: Gamepad2, sectionId: "games" },
-  { title: "SLOPE", url: "https://incrediblewebsite.github.io/slope/", category: "Game", icon: Gamepad2, sectionId: "games" },
-  { title: "Meme Soundboard", url: "https://soundboardguys.com/", description: "#1 way to annoy teachers and students", category: "Game", icon: Gamepad2, sectionId: "games" },
-  { title: "Blooket Hacks", url: "https://docs.google.com/document/d/10dcFBbj3YKHmsAVORQF6u9zp_ukofnvs6kmB-0leGF8/edit?tab=t.0", category: "Game", icon: Gamepad2, sectionId: "games" },
-  { title: "PC Games (GitHub)", url: "https://github.com/Project-Bradnails/Bradnails/commit/d967e7e572e7cd04137a3140f53becd3cc05b484", description: "Most might not work because of .exe files", category: "Game", icon: Gamepad2, sectionId: "games" },
+  // Games (generated from data)
+  ...allGames.map(g => ({ title: g.title, url: g.url, description: g.description, category: "Game", icon: Gamepad2, sectionId: "games" })),
   // Movies
   { title: "SomeStuff Proxy", url: "https://sites.google.com/view/smithper42025-2026trimenster3/some-stuff", description: "300-1000+ movies available via streaming tab", category: "Movie", icon: Film, sectionId: "movies" },
   { title: "Videos Collection", url: "https://sites.google.com/view/smithper42025-2026trimenster3/videos", description: "Video links collection", category: "Movie", icon: Film, sectionId: "movies" },
