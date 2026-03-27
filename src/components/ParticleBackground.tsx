@@ -34,6 +34,7 @@ const ParticleBackground = () => {
     window.addEventListener("mouseleave", onMouseLeave);
 
     const COUNT = 80;
+    const RISING_COUNT = 40;
     const MAX_DIST = 120;
 
     for (let i = 0; i < COUNT; i++) {
@@ -44,6 +45,19 @@ const ParticleBackground = () => {
         vy: (Math.random() - 0.5) * 0.4,
         size: Math.random() * 2 + 0.5,
         opacity: Math.random() * 0.5 + 0.1,
+        rising: false,
+      });
+    }
+
+    for (let i = 0; i < RISING_COUNT; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: canvas.height + Math.random() * 200,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: -(Math.random() * 1.2 + 0.4),
+        size: Math.random() * 2.5 + 0.5,
+        opacity: Math.random() * 0.4 + 0.1,
+        rising: true,
       });
     }
 
