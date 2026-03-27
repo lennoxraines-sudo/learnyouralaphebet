@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import SearchBar from "./SearchBar";
 
 const links = [
   { label: "Proxies", href: "#proxies" },
@@ -19,12 +20,13 @@ const Navbar = () => {
         <a href="#" className="font-display text-lg font-bold text-primary text-glow">
           YOYO'S NETWORK
         </a>
-        <div className="hidden gap-6 md:flex">
+        <div className="hidden items-center gap-6 md:flex">
           {links.map((l) => (
             <a key={l.href} href={l.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">
               {l.label}
             </a>
           ))}
+          <SearchBar />
         </div>
         <button onClick={() => setOpen(!open)} className="text-foreground md:hidden">
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
