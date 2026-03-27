@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import SearchBar from "./SearchBar";
 
 const links = [
   { label: "Proxies", href: "#proxies" },
