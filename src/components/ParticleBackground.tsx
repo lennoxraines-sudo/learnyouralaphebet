@@ -10,7 +10,7 @@ const ParticleBackground = () => {
     if (!ctx) return;
 
     let animationId: number;
-    let particles: { x: number; y: number; vx: number; vy: number; size: number; opacity: number }[] = [];
+    let particles: { x: number; y: number; vx: number; vy: number; size: number; opacity: number; rising: boolean }[] = [];
     const mouse = { x: -9999, y: -9999 };
     const MOUSE_RADIUS = 150;
     const MOUSE_FORCE = 0.8;
@@ -34,6 +34,7 @@ const ParticleBackground = () => {
     window.addEventListener("mouseleave", onMouseLeave);
 
     const COUNT = 80;
+    const RISING_COUNT = 40;
     const MAX_DIST = 120;
 
     for (let i = 0; i < COUNT; i++) {
@@ -44,6 +45,19 @@ const ParticleBackground = () => {
         vy: (Math.random() - 0.5) * 0.4,
         size: Math.random() * 2 + 0.5,
         opacity: Math.random() * 0.5 + 0.1,
+        rising: false,
+      });
+    }
+
+    for (let i = 0; i < RISING_COUNT; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: canvas.height + Math.random() * 200,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: -(Math.random() * 1.2 + 0.4),
+        size: Math.random() * 2.5 + 0.5,
+        opacity: Math.random() * 0.4 + 0.1,
+        rising: true,
       });
     }
 
@@ -83,10 +97,21 @@ const ParticleBackground = () => {
 
         p.x += p.vx;
         p.y += p.vy;
-        if (p.x < 0) p.x = canvas.width;
-        if (p.x > canvas.width) p.x = 0;
-        if (p.y < 0) p.y = canvas.height;
-        if (p.y > canvas.height) p.y = 0;
+
+        if (p.rising) {
+          if (p.y < -10) {
+            p.x = Math.random() * canvas.width;
+            p.y = canvas.height + Math.random() * 50;
+            p.vx = (Math.random() - 0.5) * 0.3;
+            p.vy = -(Math.random() * 1.2 + 0.4);
+            p.opacity = Math.random() * 0.4 + 0.1;
+          }
+        } else {
+          if (p.x < 0) p.x = canvas.width;
+          if (p.x > canvas.width) p.x = 0;
+          if (p.y < 0) p.y = canvas.height;
+          if (p.y > canvas.height) p.y = 0;
+        }
 
         // Glow near mouse
         const glowBoost = mDist < MOUSE_RADIUS ? 0.3 * (1 - mDist / MOUSE_RADIUS) : 0;
