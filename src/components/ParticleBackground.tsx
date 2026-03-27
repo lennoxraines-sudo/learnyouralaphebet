@@ -10,7 +10,7 @@ const ParticleBackground = () => {
     if (!ctx) return;
 
     let animationId: number;
-    let particles: { x: number; y: number; vx: number; vy: number; size: number; opacity: number }[] = [];
+    let particles: { x: number; y: number; vx: number; vy: number; size: number; opacity: number; rising: boolean }[] = [];
     const mouse = { x: -9999, y: -9999 };
     const MOUSE_RADIUS = 150;
     const MOUSE_FORCE = 0.8;
