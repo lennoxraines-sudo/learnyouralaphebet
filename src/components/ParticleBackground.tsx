@@ -97,10 +97,21 @@ const ParticleBackground = () => {
 
         p.x += p.vx;
         p.y += p.vy;
-        if (p.x < 0) p.x = canvas.width;
-        if (p.x > canvas.width) p.x = 0;
-        if (p.y < 0) p.y = canvas.height;
-        if (p.y > canvas.height) p.y = 0;
+
+        if (p.rising) {
+          if (p.y < -10) {
+            p.x = Math.random() * canvas.width;
+            p.y = canvas.height + Math.random() * 50;
+            p.vx = (Math.random() - 0.5) * 0.3;
+            p.vy = -(Math.random() * 1.2 + 0.4);
+            p.opacity = Math.random() * 0.4 + 0.1;
+          }
+        } else {
+          if (p.x < 0) p.x = canvas.width;
+          if (p.x > canvas.width) p.x = 0;
+          if (p.y < 0) p.y = canvas.height;
+          if (p.y > canvas.height) p.y = 0;
+        }
 
         // Glow near mouse
         const glowBoost = mDist < MOUSE_RADIUS ? 0.3 * (1 - mDist / MOUSE_RADIUS) : 0;
