@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ExternalLink, Star } from "lucide-react";
+import { ExternalLink, Star, Play } from "lucide-react";
 
 interface LinkCardProps {
   title: string;
@@ -7,10 +7,10 @@ interface LinkCardProps {
   description?: string;
   recommended?: boolean;
   tag?: string;
+  onPlay?: () => void;
 }
 
-const LinkCard = ({ title, url, description, recommended, tag }: LinkCardProps) => {
-  // Extract clean URL for display
+const LinkCard = ({ title, url, description, recommended, tag, onPlay }: LinkCardProps) => {
   const cleanUrl = (() => {
     try {
       const parsed = new URL(url);
@@ -20,12 +20,15 @@ const LinkCard = ({ title, url, description, recommended, tag }: LinkCardProps) 
     }
   })();
 
+  const Component = onPlay ? motion.div : motion.a;
+  const linkProps = onPlay
+    ? { onClick: onPlay, role: "button", tabIndex: 0 }
+    : { href: url, target: "_blank", rel: "noopener noreferrer" };
+
   return (
-    <motion.a
-      href={url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group relative block rounded-lg border border-border bg-card p-4 transition-all hover:border-primary/50 hover:box-glow"
+    <Component
+      {...(linkProps as any)}
+      className="group relative block cursor-pointer rounded-lg border border-border bg-card p-4 transition-all hover:border-primary/50 hover:box-glow"
       whileHover={{ y: -2 }}
       transition={{ duration: 0.2 }}
     >
@@ -49,19 +52,31 @@ const LinkCard = ({ title, url, description, recommended, tag }: LinkCardProps) 
             <p className="mt-2 text-xs leading-relaxed text-muted-foreground line-clamp-2">{description}</p>
           )}
         </div>
-        <ExternalLink className="h-4 w-4 flex-shrink-0 text-muted-foreground group-hover:text-primary transition-colors" />
+        {onPlay ? (
+          <Play className="h-4 w-4 flex-shrink-0 text-primary" />
+        ) : (
+          <ExternalLink className="h-4 w-4 flex-shrink-0 text-muted-foreground group-hover:text-primary transition-colors" />
+        )}
       </div>
-      {/* Embedded preview iframe */}
-      <div className="mt-3 overflow-hidden rounded border border-border bg-background">
-        <iframe
-          src={url}
-          title={title}
-          className="h-32 w-full pointer-events-none"
-          sandbox="allow-scripts allow-same-origin"
-          loading="lazy"
-        />
-      </div>
-    </motion.a>
+      {onPlay && (
+        <div className="mt-3 flex items-center justify-center rounded border border-border bg-background/50 py-4">
+          <span className="flex items-center gap-2 text-xs text-muted-foreground group-hover:text-primary transition-colors">
+            <Play className="h-5 w-5" /> Click to Play
+          </span>
+        </div>
+      )}
+      {!onPlay && (
+        <div className="mt-3 overflow-hidden rounded border border-border bg-background">
+          <iframe
+            src={url}
+            title={title}
+            className="h-32 w-full pointer-events-none"
+            sandbox="allow-scripts allow-same-origin"
+            loading="lazy"
+          />
+        </div>
+      )}
+    </Component>
   );
 };
 
