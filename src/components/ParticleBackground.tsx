@@ -84,6 +84,23 @@ const ParticleBackground = () => {
           p.vy += (mdy / mDist) * force;
         }
 
+        // Particle-particle repulsion
+        for (let j = i + 1; j < particles.length; j++) {
+          const p2 = particles[j];
+          const rdx = p.x - p2.x;
+          const rdy = p.y - p2.y;
+          const rDist = Math.sqrt(rdx * rdx + rdy * rdy);
+          if (rDist < 80 && rDist > 0) {
+            const repel = (1 - rDist / 80) * 0.15;
+            const rx = (rdx / rDist) * repel;
+            const ry = (rdy / rDist) * repel;
+            p.vx += rx;
+            p.vy += ry;
+            p2.vx -= rx;
+            p2.vy -= ry;
+          }
+        }
+
         // Damping
         p.vx *= 0.98;
         p.vy *= 0.97;
