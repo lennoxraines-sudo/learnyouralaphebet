@@ -41,11 +41,11 @@ const ParticleBackground = () => {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.4,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: -(Math.random() * 0.6 + 0.2),
         size: Math.random() * 2 + 0.5,
         opacity: Math.random() * 0.5 + 0.1,
-        rising: false,
+        rising: true,
       });
     }
 
@@ -86,7 +86,9 @@ const ParticleBackground = () => {
 
         // Damping
         p.vx *= 0.98;
-        p.vy *= 0.98;
+        p.vy *= 0.97;
+        // Constant upward drift
+        p.vy -= 0.01;
 
         // Clamp speed
         const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
@@ -98,20 +100,15 @@ const ParticleBackground = () => {
         p.x += p.vx;
         p.y += p.vy;
 
-        if (p.rising) {
-          if (p.y < -10) {
-            p.x = Math.random() * canvas.width;
-            p.y = canvas.height + Math.random() * 50;
-            p.vx = (Math.random() - 0.5) * 0.3;
-            p.vy = -(Math.random() * 1.2 + 0.4);
-            p.opacity = Math.random() * 0.4 + 0.1;
-          }
-        } else {
-          if (p.x < 0) p.x = canvas.width;
-          if (p.x > canvas.width) p.x = 0;
-          if (p.y < 0) p.y = canvas.height;
-          if (p.y > canvas.height) p.y = 0;
+        if (p.y < -10) {
+          p.x = Math.random() * canvas.width;
+          p.y = canvas.height + Math.random() * 50;
+          p.vx = (Math.random() - 0.5) * 0.3;
+          p.vy = -(Math.random() * 1.2 + 0.2);
+          p.opacity = Math.random() * 0.4 + 0.1;
         }
+        if (p.x < 0) p.x = canvas.width;
+        if (p.x > canvas.width) p.x = 0;
 
         // Glow near mouse
         const glowBoost = mDist < MOUSE_RADIUS ? 0.3 * (1 - mDist / MOUSE_RADIUS) : 0;
