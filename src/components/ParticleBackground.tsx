@@ -86,7 +86,9 @@ const ParticleBackground = () => {
 
         // Damping
         p.vx *= 0.98;
-        p.vy *= 0.98;
+        p.vy *= 0.97;
+        // Constant upward drift
+        p.vy -= 0.01;
 
         // Clamp speed
         const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
